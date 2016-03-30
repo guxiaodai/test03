@@ -15,6 +15,10 @@
     "gulp-uglify": "^1.0.2",
     "gulp-util": "^2.2.14"
   },
+  "devDependencies":{
+    "gulp": "^3.9.1"
+
+  },
 
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

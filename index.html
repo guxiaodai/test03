@@ -1,0 +1,820 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">     
+<meta charset="utf-8">             
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">     
+<meta content="yes" name="apple-mobile-web-app-capable">     
+<meta content="black" name="apple-mobile-web-app-status-bar-style">     
+<meta content="telephone=no" name="format-detection">
+
+<title>homePage</title>
+<link rel="stylesheet" href="css/jquery.fullPage.css">
+<!-- <link rel="stylesheet" href="css/index.css"> -->
+<style>
+  .controlArrow{
+    visibility: hidden;
+  }
+  .header{
+    position: absolute;
+    top: 0;
+    height: 8%;
+    width: 100%;
+    background-color: #DD4E41;
+    color: #fff;
+    font-size: 1.5em;
+    font-family: '微软雅黑';
+    line-height: 50px;
+    padding-left: 10px;
+
+  }
+  .mainPic{
+    box-shadow: 0 1px 3px rgba(0,0,0,.5);
+    background:url("img/pic6.jpg") no-repeat;
+    background-size: 100%;
+    border-top: 1px solid #ccc;
+    position: relative;
+    
+    top: -300px;
+    z-index: 20;
+    -webkit-transition:all 1s ease;
+    -moz-transition:all 1s ease;
+    -o-transition:all 1s ease;
+    transition: all 1s ease;
+  }
+  .footerTag{
+    position: absolute;
+    width:100%;
+    height:10%;
+    bottom: 0;
+    background-color: #2DA8FF;
+  }
+    .departLine{
+    width: 0;
+    height: 1px;
+    background-color: #ccc;
+    overflow: hidden;
+    position: absolute;
+    -webkit-transition:all 1s ease;
+    -moz-transition:all 1s ease;
+    -o-transition:all 1s ease;
+    transition: all 1s ease;
+    /*box-shadow: 0 1px 3px rgba(0,0,0,.5);*/
+  }
+
+
+  .wordBlock{
+    width: 100%;
+    height: 120px;
+    /*box-shadow: 0 1px 3px rgba(0,0,0,.5);*/
+    
+    position: absolute;
+    
+    /*visibility: hidden;*/
+    -webkit-transition:all 1s ease;
+    -moz-transition:all 1s ease;
+    -o-transition:all 1s ease;
+    transition: all 1s ease;
+    /*border: 1px solid red;*/
+    overflow: hidden;
+
+  }
+  #word1{
+    left: -100%;
+  }
+  #word2{
+    right: -100%;
+  }
+  .wordBlock img{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 40%;
+    height: 100%;
+    margin: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.5);
+    display: inline-block;
+  }
+  .def{
+    
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 55%;
+    height: 100%;
+    display: inline-block;
+    /*background-color: red;*/
+    margin: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.5);
+  }
+  .wordTag{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 50%;
+    font-size: 1.5em;
+    font-family: '微软雅黑';
+    padding: 10px;
+  }
+  .wordDef{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 35%;
+    font-size: 1em;
+    font-family: '微软雅黑';
+    padding: 15px;
+  }
+  
+
+  .appLink{
+    position: absolute;
+    bottom: 10px;
+    right: 40px;
+  }
+  .appLink a{
+    text-decoration: none;
+    color: #005AAB;
+  }
+/*第二屏第一版*/
+  .slide{
+    overflow: hidden;
+  }
+  
+  
+  .slide11{
+    
+    filter:alpha(opacity=80 finishopacity=50 style=1 startx=0,starty=0,finishx=0,finishy=150) progid:DXImageTransform.Microsoft.gradient(startcolorstr=#000,endcolorstr=#fff,gradientType=0);
+    -ms-filter:alpha(opacity=80 finishopacity=50 style=1 startx=0,starty=0,finishx=0,finishy=150) progid:DXImageTransform.Microsoft.gradient(startcolorstr=#000,endcolorstr=#fff,gradientType=0);/*IE8*/  
+    background:red; /* 一些不支持背景渐变的浏览器 */  
+    background:-moz-linear-gradient(top, #000, rgba(255, 255, 255, 0.5));  
+    background:-webkit-gradient(linear, 0 0, 0 bottom, from(#000), to(rgba(255, 255, 255, 0.5)));  
+    background:-o-linear-gradient(top, #000, rgba(255, 255, 255, 0.5)); 
+  }
+  .upBlock{
+    overflow: hidden;
+    background-color: #fff;
+    border-radius: 5px;
+    position: absolute;
+  }
+  .ftBlock{
+    /*border: 1px solid #ccc;*/
+    background-color: #fff;
+    border-radius: 5px;
+    position: absolute;
+  }
+  .upBlockLeft{
+    width: 55%;
+    height: 100%;
+    float: left;
+    background-color: #fff;
+  }
+  .upBlockLeft img{
+    width: 100%;
+    height: 69%;
+    border-radius: 5px;
+  }
+  .desWordB{
+    margin-top: 0;
+    width: 100%;
+    height: 15%;
+    /*background-color: pink;*/
+    text-align: center;
+    font-size: 1.5em;
+  }
+  .desWordL{
+    width: 100%;
+    height: 15%;
+    /*background-color: #fff;*/
+    text-align: center;
+    font-size: 1em;
+  }
+  .upBlockRight{
+    width: 45%;
+    height: 100%;
+    /*background-color: red;*/
+    float: left;
+  }
+  .upBlockRUp{
+    width: 100%;
+    height: 50%;
+    /*background-color: blue;*/
+    background: url("img/pic4.jpg") no-repeat;
+  }
+  /*#ubru_word{
+    
+    display: none;
+  }*/
+  #ubru_word_tit{
+    padding-top: 15px;
+    font-size: 1em;
+  }
+  #ubru_word_content{
+    padding-top: 10px;
+    font-size: 1em;
+  }
+
+  .upBlockRFt{
+    background: url("img/pic1.jpg");
+    width: 100%;
+    height: 50%;
+    background-color: #ccc;
+  }
+  .fadeWord{
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    filter:alpha(opacity=50);   
+      -moz-opacity:0.5;   
+      -khtml-opacity: 0.5;   
+      opacity: 0.5; 
+    /*display: none;*/
+    
+  }
+  #ubrf_word{
+    
+    display:none;
+  }
+  #ubrf_word_tit{
+    padding-top: 15px;
+
+  }
+  #ubrf_word_content{
+    padding-top: 10px;
+  }
+  .ftBlockUp{
+    width: 100%;
+    height: 70%;
+    background: url("img/pic4.jpg") no-repeat;
+    background-size: 120%;
+
+  }
+  .ftBlockFt{
+    width: 100%;
+    height: 29%;
+    background-color: #fff;
+    text-align: center;
+    font-size: 20px;
+    line-height: 50px;
+  }
+  .ftBlockDepartLine{
+    width: 100%;
+    height: 1%;
+    background-color: #ccc;
+    overflow: hidden;
+  }
+
+  /*第二屏第二页*/
+  .slide12{
+    background-color: #fff;
+
+  }
+  .lck{
+    width: 80%;
+    margin: 30px auto;
+    /*border: 1px solid red;*/
+    height: 80%;
+    padding-left: 0;
+  }
+  .lck li{
+    float: left;
+    width:100%;
+    height: 25%;
+    border: 1px solid #eee;
+    list-style-type: none;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    color: #fff;
+    text-align: center;
+    font-size: 20px;
+    line-height: 40px;
+  }
+  .lck li img{
+    width: 100%;
+    height: 100%;
+
+  }
+  #li_word1{
+    background-color: #FC8051;
+  }
+  #li_word2{
+    background-color: #6AE2DA;
+  }
+  /*第二屏第三页*/
+  .lpd{
+    width: 100%;
+    margin: 0 auto;
+    /*border: 1px solid red;*/
+    height: 100%;
+    padding-left: 0;
+  }
+  .lpd li{
+    list-style-type: none;
+    width: 100%;
+    float: left;
+  }
+  #lpd_up{
+    height: 50%;
+    
+  }
+  #lpd_up img{
+    width: 100%;
+    height: 100%;
+  }
+  #lpd_bot{
+    height: 50%;
+    background-color: #34ECBA;
+    position: relative;
+  }
+  #lpd_n{
+    /*height: 30%;*/
+    background-color: #3987EA;
+    font-size: 1em;
+    color: #fff;
+    word-break:break-all；
+    width:100%;
+    text-align: center;
+    line-height: 30px;
+
+
+  }
+  .leftDP{
+    width: 15px;
+    height: 1px;
+    background-color: #000;
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    top: 100px;
+  }
+  .rightDP{
+    width: 15px;
+    height: 1px;
+    background-color: #000;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    top: 100px;
+  }
+  #lpd_title{
+    position: absolute;
+    width: 100%;
+    top: 70px;
+    text-align: center;
+    font-size: 2em;
+  }
+  #lpd_content{
+    position: absolute;
+    width: 100%;
+    top: 120px;
+    text-align: center;
+    font-size: 1em;
+  }
+  /*第三屏第一页*/
+  .qg{
+    width: 100%;
+    margin: 0 auto;
+    /*border: 1px solid red;*/
+    height: 100%;
+    padding-left: 0;
+  }
+  .qg li{
+    list-style-type: none;
+    float: left;
+    width: 100%;
+    height: 28%;
+    margin-top: 15px;
+    
+  }
+  .circleLi{
+    border-radius: 50%;
+    margin: 0 auto;
+    height: 190px;
+    width: 190px;
+    background-color: #fff;
+    overflow: hidden;
+    text-align: center;
+    font-size: 1.5em;
+    
+
+  }
+  #circleLi02 img{
+    width: 100%;
+    height:100%;
+  }
+  #circleLi03{
+    position: relative;
+  }
+  #circleLi03 div{
+    position: absolute;
+    width: 125px;
+    height: 125px;
+    top: 32.5px;
+    left: 32.5px;
+    
+  }
+  #circleLi01{
+    position: relative;
+  }
+  #circleLi01 div{
+    position: absolute;
+    width: 190px;
+    height: 50px;
+    top: 70px;
+    left: 0;
+    
+    line-height: 50px;
+    font-size: 1.5em;
+    font-family: '微软雅黑';
+  }
+
+
+
+
+  /*第三屏第二页*/
+  .slide22{
+    /*background-color: #32E2B2;*/
+  }
+
+  .lgd{
+    width: 100%;
+    margin: 0 auto;
+    /*border: 1px solid red;*/
+    height: 100%;
+    padding-left: 0;
+  }
+  .lgd li{
+    float: left;
+    width: 50%;
+    height: 45%;
+    background-color: #F4EFE9;
+    margin: 0px;
+    list-style-type: none;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  .lgd li img{
+    width: 100%;
+    height: 100%;
+  }
+  #lgd_word1{
+    background-color: #eee;
+  }
+  #lgd_word1 div{
+    width: 90%;
+    margin: 25px auto;
+    text-align: center;
+    font-size: 1.5em;
+    font-family: '微软雅黑';
+  }
+  #lgd_word2{
+    background-color: #fff;
+  }
+  #lgd_word2 div{
+    width: 90%;
+    margin: 25px auto;
+    text-align: center;
+    font-size: 1.5em;
+    font-family: '微软雅黑';
+  }
+
+  /*第三屏第三页*/
+  .slide23{
+    background-color: #FFF5EE;
+  }
+  #omg_circleLi01{
+    position: relative;
+  }
+  #omg_circleLi02{
+    position: relative;
+  }
+  #omg_circleLi03{
+    position: relative;
+  }
+  #omg_circleLi01 img{
+    width: 100%;
+    height: 100%;
+    
+  }
+  #omg_circleLi01 {
+    background-color: #32E2B2;
+  }
+
+  #omg_circleLi02 img{
+    width: 100%;
+    height: 100%;
+    
+  }
+  #omg_circleLi02 {
+    background-color: #EF7845;
+  }
+  #omg_circleLi03 img{
+    width: 100%;
+    height: 100%;
+    
+  }
+  #omg_circleLi03 {
+    background-color: #39AFEA;
+  }
+  /*#omg_circleLi02 {
+    background-color: #f90;
+  }*/
+  .omg_div {
+    position: absolute;
+    width: 125px;
+    height: 125px;
+    top: 32.5px;
+    left: 32.5px;
+    display: none;
+  }
+
+  /*第四屏*/
+  .section4 {
+    
+  }
+  #godv{
+    background-color: rgb(23,161,95);
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+  }
+  #godv_content{
+    width: 300px;
+    position: absolute;
+    top: 100px;
+    height: 400px;
+    background-color: #fff;
+  }
+  #godv_content div{
+    position: absolute;
+    top: 50px;
+    width: 250px;
+    height: 250px;
+    left: 25px;
+    background-color: #000;
+  }
+  #godv_content div img{
+    width: 100%;
+    height: 100%;
+  }
+</style>
+<script src="js/jquery-1.8.3.min.js"></script>
+<script src="js/jquery-ui-1.10.3.min.js"></script>
+<script src="js/jquery.fullPage.min.js"></script>
+<script src="js/index.js"></script>
+<script>
+$(document).ready(function() {
+  var maxHeight=document.documentElement.clientHeight;
+  var maxWidth=document.documentElement.clientWidth;
+  adjustPosition();
+  animations();
+  //addEvents();
+	$.fn.fullpage({
+		slidesColor: ['#eee', '', '#FC8051', '#fff', '#ef820'],
+		anchors: ['page1', 'page2', 'page3', 'page4', 'page5'],
+    verticalCentered:false,
+    slidesNavigation:true,
+		afterLoad: function(anchorLink, index){
+      if(index==1){
+        $('.mainPic').css({
+          top:0.08*document.documentElement.clientHeight
+        });
+        $('.departLine').css({
+          width:maxWidth
+        });
+        $('#word1').css({
+          left:0
+        });
+        $('#word2').css({
+          right:0
+        });
+      }
+			if(index == 2){
+				$('#mode1Pic').animate({
+					top:maxHeight*0.08,
+          left:maxWidth*0.08,
+          width:maxWidth*0.7,
+          height:maxHeight*0.5
+				}, 1500, 'easeOutExpo');
+        $('#mode1Word').delay(500).css({
+            top:maxHeight*0.5,
+            left:maxWidth*0.34,
+            width:maxWidth*0.6,
+            height:maxHeight*0.4
+          });
+
+			}
+			if(index == 3){
+				$('.section3').find('p').delay(500).animate({
+					bottom: '0'
+				}, 1500, 'easeOutExpo');
+			}
+			if(index == 4){
+				$('.section4').find('p').fadeIn(2000);
+			}
+		},
+		onLeave: function(index, direction){
+      if(index='1'){
+        
+        $('#word1').css({
+          left:'-100%'
+        });
+        $('#word2').css({
+          right:'-100%'
+        });
+        $('.departLine').css({
+          width:0
+        });
+      }
+			if(index == '2'){
+				$('.section2').find('p').delay(500).animate({
+					left: '-120%'
+				}, 1500, 'easeOutExpo');
+			}
+			if(index == '3'){
+				$('.section3').find('p').delay(500).animate({
+					bottom: '-120%'
+				}, 1500, 'easeOutExpo');
+			}
+			if(index == '4'){
+				$('.section4').find('p').fadeOut(2000);
+			}
+		}
+	});
+  
+  setTimeout(function(){
+    $('.mainPic').css({
+      top:0.08*document.documentElement.clientHeight
+    });
+
+  },200);
+  setTimeout(function(){
+    $('.departLine').css({
+      width:maxWidth
+    });
+    $('#word1').css({
+      left:0
+    });
+    $('#word2').css({
+      right:0
+    });
+    
+  },200);
+
+});
+</script>
+</head>
+
+<body>
+<div class="section section1">
+
+  <div class="header">Logo</div>
+  <div class="mainPic"></div>
+  <div class="footerTag"></div>
+  <div class="departLine departLine1"></div>
+  
+  <div class="departLine departLine2"></div>
+  
+  <div id="word1"class="wordBlock">
+    <img src="img/pic1.jpg"/>
+    <div class="def" style="background-color: #DAFFD2">
+      <div class="wordTag">有一只小毛驴</div>
+      <div class="wordDef">可爱的蓝精灵</div>
+    </div>
+  </div>
+  <div id="word2" class="wordBlock">
+    <img src="img/pic4.jpg"/>
+    <div class="def" style="background-color: #FFFAAC">
+      <div class="wordTag">fsfsf</div>
+      <div class="wordDef">fdfd</div>
+    </div>
+  </div>
+  
+  <div class="appLink"><a href="http://www.baidu.com">www.baidu.com</a></div>
+</div>
+<div class="section section2">
+	<div class="slide slide11">
+   <div class="upBlock">
+     <div class="upBlockLeft">
+       <img src="img/pic6.jpg"/>
+       <div class='desWordB'>fsfs</div>
+       <div class='desWordL'>fsfd</div>
+     </div>
+     <div class="upBlockRight">
+       <div class="upBlockRUp" >
+         <div id="ubru_word" class="fadeWord">
+           <div id="ubru_word_tit">sffsf</div>
+           <div id="ubru_word_content">dfdfd</div>
+         </div>
+       </div>
+       <div class="upBlockRFt">
+         <div id="ubrf_word" class="fadeWord">
+           <div id="ubrf_word_tit">fefef</div>
+           <div id="ubrf_word_content">fffefs</div>
+         </div>
+       </div>
+     </div>
+   </div>
+   <div class="ftBlock">
+     <div class="ftBlockUp"></div>
+     <div class="ftBlockDepartLine"></div>
+     <div class="ftBlockFt">fsfsf</div>
+   </div>
+  </div>
+	<div class="slide slide12">
+   <ul class="lck">
+     <li><img src="img/pic4.jpg"/></li>
+     <li id="li_word1">sfsf</li>
+     <li><img src="img/pic6.jpg"/></li>
+     <li id="li_word2">fsdfs</li>
+   </ul>
+
+  </div>
+	<div class="slide slide13">
+   <ul class="lpd">
+     <!-- <li id="lpd_n">事件发生时几分 i 后跟哦 i文；聚集；经济斤斤计较实则如诗如</li> -->
+     <li id="lpd_up"><img src="img/pic6.jpg"/></li>
+     <li id="lpd_bot">
+       <div class="leftDP"></div>
+       <div class="rightDP"></div>
+       <div id="lpd_title">fdfsf</div>
+       <div id="lpd_content">kjjij</div>
+     </li>
+   </ul> 
+  </div>
+</div>
+<div class="section section3">
+	<div class="slide slide21">
+   <ul class="qg">
+     <li>
+       <div class="circleLi" id="circleLi01">
+          <div>凡士林护肤</div>
+       </div>
+     </li>
+     <li>
+       <div class="circleLi" id="circleLi02">
+         <img src="img/pic1.jpg"/>
+       </div>
+     </li>
+     <li>
+       <div class="circleLi" id="circleLi03">
+          <div>粉色地方酸辣粉是否老师发顺丰好了</div>
+       </div>
+     </li>
+   </ul> 
+  </div>
+	<div class="slide slide22">
+   <ul class="lgd">
+     <li><img src="img/pic1.jpg"/></li>
+     <li id="lgd_word1">
+       <div>凤凰撒</div>
+     </li>
+     <li id="lgd_word2">
+       <div>说噶时十分高</div>
+     </li>
+     <li><img src="img/pic6.jpg"/></li>
+   </ul> 
+  </div>
+	<div class="slide slide23">
+   <ul class=" qg omg">
+     <li>
+       <div class="circleLi" id="omg_circleLi01">
+          <img src="img/pic6.jpg"/>
+          <div class="omg_div">lsfgsfu</div>
+       </div>
+     </li>
+     <li>
+       <div class="circleLi" id="omg_circleLi02">
+         <img src="img/pic4.jpg"/>
+         <div class="omg_div">hlggsgg</div>
+       </div>
+     </li>
+     <li>
+       <div class="circleLi" id="omg_circleLi03">
+          <img src="img/pic1.jpg"/>
+          <div class="omg_div">fsdfdfsd</div>
+       </div>
+     </li>
+   </ul> 
+  </div>
+</div>
+<div class="section section4">
+	<div id="godv">
+   <div id="godv_content">
+     <div>
+       <img src=''/>
+     </div>
+   </div> 
+  </div>
+</div>
+
+
+
+</body>
+</html> 
